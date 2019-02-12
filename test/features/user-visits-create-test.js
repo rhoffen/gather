@@ -6,7 +6,7 @@ describe('User vists create page and posts a new item', () => {
   describe('clicks submit button', () => {
     it('sees item rendered', () => {
       //setup
-      browser.url('/create.html');
+      browser.url('/items/create.html');
       const itemToCreate = buildItemObject();
       //exercise
       browser.setValue('#title-input', itemToCreate.title);

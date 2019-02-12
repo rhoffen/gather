@@ -11,7 +11,7 @@ describe('User visits root', () => {
   describe('User clicks on "create" link', () => {
     it('navigates to "create.html"',() => {
       browser.url('/');
-      browser.click('a[href="create.html"]');
+      browser.click('a[href="/items/create.html"]');
       assert.include(browser.getText('.form-title'),'Create');
     });
   });
