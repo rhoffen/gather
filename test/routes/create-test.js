@@ -36,14 +36,24 @@ describe('Server path: /items/create', () => {
   });
 
   describe('POST request', () => {
-    console.log(itemToCreate);
-    it('creates a new item', async () => {
+    //console.log(itemToCreate);
+    //const itemToCreate = buildItemObject();
+    it('creates and renders a new item', async () => {
       const response = await request(app)
         .post('/items/create')
         .type('form')
         .send(itemToCreate);
       const createdItem = await Item.findOne(itemToCreate);
       assert.isOk(createdItem,'item is not in database');
+      });
+
+    it('', async () => {
+      const response = await request(app)
+        .post('/items/create')
+        .type('form')
+        .send(itemToCreate);
+      assert.equal(302, response.status);
+      assert.equal(response.headers.location, '/')
       });
     });
   });
