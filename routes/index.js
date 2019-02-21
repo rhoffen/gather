@@ -13,7 +13,9 @@ router.get('/items/create', async (req, res, next) => {
 });
 
 router.post('/items/create', async (req, res, next) => {
-  const items = [req.body];
+  console.log('res.body = ' + res.body);
+  await Item.create(res.body);
+  const items = await Item.find({});
   res.render('index', {items});
 });
 
