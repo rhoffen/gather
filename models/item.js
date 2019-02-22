@@ -5,13 +5,16 @@ module.exports = mongoose.model(
   // Define your model schema below:
   mongoose.Schema({
     title: {
-      type: String
+      type: String,
+      required: true
     },
     description: {
-      type: String
+      type: String,
+      required: true
     },
     imageUrl: {
-      type: String
-    },
+      type: String,
+      required: true
+    }
   })
 );

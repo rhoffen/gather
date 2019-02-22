@@ -47,7 +47,7 @@ describe('Server path: /items/create', () => {
       assert.isOk(createdItem,'item is not in database');
       });
 
-    it('', async () => {
+    it('redirects to root', async () => {
       const response = await request(app)
         .post('/items/create')
         .type('form')
@@ -55,5 +55,56 @@ describe('Server path: /items/create', () => {
       assert.equal(302, response.status);
       assert.equal(response.headers.location, '/')
       });
+
+      it('displays error message if no title submitted', async () => {
+        const itemNoTitle = {
+          description: 'Big Bear',
+          imageUrl: 'https://www.placebear.com/200/300'
+        };
+
+        const response = await request(app)
+          .post('/items/create')
+          .type('form')
+          .send(itemNoTitle);
+
+        const createdItems = await Item.find({});
+        assert.equal(createdItems.length, 0);
+        assert.equal(response.status, 400);
+        assert.include(parseTextFromHTML(response.text, 'form'), 'required');
+      });
+
+      it('displays error message if no description submitted', async () => {
+        const itemNoDescription = {
+          title: 'Big Bear',
+          imageUrl: 'https://www.placebear.com/200/300'
+        };
+
+        const response = await request(app)
+          .post('/items/create')
+          .type('form')
+          .send(itemNoDescription);
+
+          const createdItems = await Item.find({});
+          assert.equal(createdItems.length, 0);
+          assert.equal(response.status, 400);
+          assert.include(parseTextFromHTML(response.text, 'form'), 'required');
+        });
+
+        it('displays error message if no image URL submitted', async () => {
+          const itemNoUrl = {
+            title: 'Big bear',
+            description: 'Really Big Bear'
+          };
+
+          const response = await request(app)
+            .post('/items/create')
+            .type('form')
+            .send(itemNoUrl);
+
+          const createdItems = await Item.find({});
+          assert.equal(createdItems.length, 0);
+          assert.equal(response.status, 400);
+          assert.include(parseTextFromHTML(response.text, 'form'), 'required');
     });
   });
+});
