@@ -12,5 +12,21 @@ describe('Server path: /items/:id', () => {
   afterEach(diconnectDatabase);
 
   // Write your test blocks below:
-  
+  describe('single item rendering', () => {
+    it('returns requested items description', async () => {
+      //setup
+      const newItem = await seedItemToDatabase();
+      const newItemId = newItem._id;
+      console.log('***newItemId= ' + newItemId)
+      //exercise
+      const getPath = '/items/' + newItemId;
+      const response = await request(app)
+          .get(getPath);
+      //verify
+      browser.url('single');
+      assert.include(parseTextFromHTML(response.body, '#item-title'), newItem.title);
+      assert.include(parseTextFromHTML(response.body, '#item-description'), newItem.description);
+
+    });
+  });
 });

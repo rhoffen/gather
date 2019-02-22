@@ -12,6 +12,11 @@ router.get('/items/create', async (req, res, next) => {
   res.render('create')
 });
 
+router.get('/items/:id', async (req, res, next) => {
+  res.body = await Item.findById(req.params.id);
+  res.render('single', res.body);
+});
+
 router.post('/items/create', async (req, res, next) => {
   const {title, description, imageUrl} = req.body;
   const newItem = new Item({title, description, imageUrl});
@@ -22,7 +27,6 @@ router.post('/items/create', async (req, res, next) => {
     await newItem.save();
     res.redirect('/');
   };
-  //await Item.create(req.body);
 });
 
 module.exports = router;
