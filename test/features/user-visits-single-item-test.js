@@ -25,7 +25,8 @@ describe('User visits single item view', () => {
     it('Shows item description', () => {
         browser.url('/');
         browser.click('.item-card a');
-        assert.include(browser.getText('body'), itemToCreate.description);
+        browser.url('/item/single');
+        assert.include(browser.getText('body'), item.description);
     });
   });
 });

@@ -23,9 +23,10 @@ describe('Server path: /items/:id', () => {
       const response = await request(app)
           .get(getPath);
       //verify
-      browser.url('single');
-      assert.include(parseTextFromHTML(response.body, '#item-title'), newItem.title);
-      assert.include(parseTextFromHTML(response.body, '#item-description'), newItem.description);
+      //browser.url('single');
+      console.log('***response.text = ' + response.text);
+      assert.include(parseTextFromHTML(response.text, '#item-title'), newItem.title);
+      assert.include(parseTextFromHTML(response.text, '#item-description'), newItem.description);
 
     });
   });

@@ -36,8 +36,6 @@ describe('Server path: /items/create', () => {
   });
 
   describe('POST request', () => {
-    //console.log(itemToCreate);
-    //const itemToCreate = buildItemObject();
     it('creates and renders a new item', async () => {
       const response = await request(app)
         .post('/items/create')
