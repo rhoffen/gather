@@ -14,12 +14,7 @@ router.get('/items/create', async (req, res, next) => {
 
 router.get('/items/:id', async (req, res, next) => {
   const item = await Item.findById(req.params.id);
-  console.log('%%%router: item.title: ' + item.title);
-  console.log('%%%router: item.description: ' + item.description);
-  console.log('%%%router: item ' + item);
-  res.send(item);
   res.render('single', {item});
-  res.redirect('single');
 });
 
 router.post('/items/create', async (req, res, next) => {

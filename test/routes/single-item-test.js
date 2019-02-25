@@ -17,17 +17,13 @@ describe('Server path: /items/:id', () => {
       //setup
       const newItem = await seedItemToDatabase();
       const newItemId = newItem._id;
-      console.log('***newItemId= ' + newItemId)
       //exercise
       const getPath = '/items/' + newItemId;
       const response = await request(app)
           .get(getPath);
       //verify
-      //browser.url('single');
-      console.log('***response.text = ' + response.text);
       assert.include(parseTextFromHTML(response.text, '#item-title'), newItem.title);
       assert.include(parseTextFromHTML(response.text, '#item-description'), newItem.description);
-
     });
   });
 });
