@@ -29,12 +29,14 @@ router.post('/items/create', async (req, res, next) => {
   };
 });
 
-router.delete('/items/:id/delete', async (req, res, next) =>  {
-  //const itemToDelete = req.params.id;
-  console.log(itemToDelete);
-  await Item.findByIdAndDelete(req.params.id);
-  //res.render('/');
-  res.send();
-})
+router.post('/items/:itemId/delete', async (req, res, next) =>  {
+  try {
+    await Item.findByIdAndRemove(req.params.itemId);
+  } catch(e) {}
+      finally{
+        res.redirect('/');
+      }
+  ;
+});
 
 module.exports = router;
