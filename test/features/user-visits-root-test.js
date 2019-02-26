@@ -25,20 +25,13 @@ describe('User visits root', () => {
       connectDatabaseAndDropData;
       //setup - user goes to root page and deletes an item
       const item = await seedItemToDatabase();
-      const response = await request(app)
-        .get('/');
+      browser.url('/');
+      assert.include(browser.getText('body'), item.title);
+      browser.click(`#delete-${item._id}`);
+      browser.url('/');
+      assert.notInclude(browser.getText('body'), item.title);
 
-      assert.include(response.text, `item-${item.id}`);
-
-      await request(app)
-        .post(`/items/${item.id}/delete`);
-
-      const response2 = await request(app)
-        .get('/');
-
-      //verify - created item no longer on page
-      assert.notInclude(response2.text, `item-${item.id}`);
-      diconnectDatabase;
+      disconnectDatabase;
     });
   });
 });
