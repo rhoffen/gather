@@ -1,5 +1,5 @@
 const {assert} = require('chai');
-const {seedItemToDatabase, connectDatabaseAndDropData, diconnectDatabase} = require('../test-utils');
+const {seedItemToDatabase, connectDatabaseAndDropData, disconnectDatabase} = require('../test-utils');
 const request = require('supertest');
 const app = require('../../app');
 
@@ -25,12 +25,12 @@ describe('User visits root', () => {
       connectDatabaseAndDropData;
       //setup - user goes to root page and deletes an item
       const item = await seedItemToDatabase();
-      browser.url('/');
-      assert.include(browser.getText('body'), item.title);
-      browser.click(`#delete-${item._id}`);
-      browser.url('/');
-      assert.notInclude(browser.getText('body'), item.title);
-
+      await browser.url('/');
+      assert.include(await browser.getText('body'), item.title);
+      await browser.click(`#delete-${item._id}`);
+//      console.log(`after delete, body = ${browser.getText('body')}`);
+      await browser.url('/');
+      assert.notInclude(await browser.getText('body'), item.title);
       disconnectDatabase;
     });
   });
