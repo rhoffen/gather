@@ -6,10 +6,10 @@
         <div class="image-overlay">
           <div class="overlay-button delete-button">
             <form id="delete-{{item._id}}" class="delete-form" action="/items/{{item._id}}/delete" method="post">
-              <!-- <button type='submit'> -->
+              <button type='submit'>
                 <img src="/img/delete.svg" alt="delete">
                 <p>Delete</p>
-              <!-- </button> -->
+              </button>
             </form>
           </div>
           <div class="overlay-button view-button">
@@ -37,11 +37,11 @@
     </div>
   </a>
 </div>
-<script>
+<!-- <script>
   document.querySelectorAll('.delete-form')
     .forEach(function(element) {
       element.onclick = function(e) {
       e.preventDefault();
       element.submit()};
     });
-</script>
+</script> -->
