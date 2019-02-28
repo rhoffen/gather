@@ -32,11 +32,11 @@ router.post('/items/create', async (req, res, next) => {
 router.post('/items/:itemId/delete', async (req, res, next) =>  {
   try {
     await Item.findByIdAndRemove(req.params.itemId);
-  } catch(e) {}
-      finally{
-        res.redirect('/');
-      }
-  ;
+  } catch(e) {
+
+  } finally {
+    res.redirect('/');
+  };
 });
 
 module.exports = router;

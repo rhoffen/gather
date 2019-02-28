@@ -1,5 +1,5 @@
 const {assert} = require('chai');
-const {seedItemToDatabase, connectDatabaseAndDropData, diconnectDatabase} = require('../test-utils');
+const {seedItemToDatabase, connectDatabaseAndDropData, disconnectDatabase} = require('../test-utils');
 const request = require('supertest');
 const app = require('../../app');
 
@@ -27,7 +27,7 @@ describe('User visits root', () => {
       const item = await seedItemToDatabase();
       const response = await request(app)
         .get('/');
-
+      //browser.url('/');
       assert.include(response.text, `item-${item.id}`);
 
       await request(app)
@@ -38,7 +38,7 @@ describe('User visits root', () => {
 
       //verify - created item no longer on page
       assert.notInclude(response2.text, `item-${item.id}`);
-      diconnectDatabase;
+      disconnectDatabase;
     });
   });
 });
